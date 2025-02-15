@@ -1,0 +1,19 @@
+[project]
+name = "cepy-dict"
+version = "0.1.0"
+description = "A sleepy Chinese-english dictionary library"
+readme = "README.md"
+requires-python = ">=3.4"
+authors = [{name = "Erik Swanson", email = "theerikswanson@gmail.com"}]
+license = "GLP-3.0-or-later"
+license-files = ["COPYING"]
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+]
