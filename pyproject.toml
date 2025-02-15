@@ -3,9 +3,9 @@ name = "cepy-dict"
 version = "0.1.0"
 description = "A sleepy Chinese-english dictionary library"
 readme = "README.md"
-requires-python = ">=3.4"
+requires-python = ">=3.8"
 authors = [{name = "Erik Swanson", email = "theerikswanson@gmail.com"}]
-license = "GLP-3.0-or-later"
+license = "GPL-3.0-or-later"
 license-files = ["COPYING"]
 dependencies = []
 
