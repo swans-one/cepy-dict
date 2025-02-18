@@ -27,6 +27,9 @@ jobs:
   upload-to-test-pypi:
     runs-on: ubuntu-latest
     needs: build
+
+    if: github.ref == 'refs/heads/main'
+
     environment:
       name: testpypi
       url: https://test.pypi.org/p/cepy-dict
@@ -44,4 +47,29 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          verbose: true
+
+  upload-to-pypi:
+    runs-on: ubuntu-latest
+    needs: build
+
+    if: github.ref == 'refs/heads/main'
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/cepy-dict
+
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download dist folder
+        uses: actions/download-artifact@v4
+        with:
+          name: build-dist-folder
+          path: dist
+      - name: Upload to test-pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://pypi.org/legacy/
           verbose: true
