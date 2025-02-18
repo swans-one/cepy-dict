@@ -68,8 +68,5 @@ jobs:
         with:
           name: build-dist-folder
           path: dist
-      - name: Upload to test-pypi
+      - name: Upload to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://pypi.org/legacy/
-          verbose: true
