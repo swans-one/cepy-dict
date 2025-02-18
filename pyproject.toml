@@ -1,6 +1,6 @@
 [project]
 name = "cepy-dict"
-version = "2025.02.17"
+version = "2025.02.18"
 description = "A sleepy Chinese-english dictionary library"
 readme = "README.md"
 requires-python = ">=3.8"

@@ -21,14 +21,14 @@ import pathlib
 DEFAULT_PATH = pathlib.Path(__file__).parent / 'cc-cedict.txt'
 
 @contextlib.contextmanager
-def cedict_raw_file(path=DEFAULT_PATH):
+def raw_file(path=DEFAULT_PATH):
     """A context manager"""
     with open(path) as f:
         yield f
 
-def cedict_entries(path=DEFAULT_PATH):
+def entries(path=DEFAULT_PATH):
     """A generator over the entries"""
-    with cedict_raw_file(path) as f:
+    with raw_file(path) as f:
         for line in f.readlines():
             if line.strip().startswith("#") or line.strip() == "":
                 continue

@@ -17,22 +17,22 @@
 
 import pathlib
 
-from cepy_dict import cedict_raw_file, cedict_entries
+import cepy_dict
 
 TEST_DICT = pathlib.Path(__file__).parent / "test_dict.txt"
 
-def test_cedict_raw_file_loads_full_dict():
-    with cedict_raw_file() as f:
+def test_cepy_dict_raw_file_loads_full_dict():
+    with cepy_dict.raw_file() as f:
         line_count = len(f.readlines())
     assert line_count > 100_000
 
-def test_cedict_raw_file_test_file():
-    with cedict_raw_file(TEST_DICT) as f:
+def test_cepy_dict_raw_file_test_file():
+    with cepy_dict.raw_file(TEST_DICT) as f:
         line_count = len(f.readlines())
     assert line_count == 6
 
-def test_cedict_entries_test_file():
-    entries = list(cedict_entries(TEST_DICT))
+def test_cepy_dict_entries_test_file():
+    entries = list(cepy_dict.entries(TEST_DICT))
     assert len(entries) == 3
 
     # First entry
