@@ -15,9 +15,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-class CeDict:
-    def __init__(self):
-        pass
+import contextlib
+import pathlib
 
-    def __repr__(self):
-        return "CeDict()"
+DEFAULT_PATH = pathlib.Path(__file__).parent / 'cc-cedict.txt'
+
+@contextlib.contextmanager
+def cedict_raw_file(path=DEFAULT_PATH):
+    """A context manager"""
+    with open(path) as f:
+        yield f
+
+def cedict_entries(path=DEFAULT_PATH):
+    """A generator over the entries"""
+    with cedict_raw_file() as f:
+        for line in f.readlines():
+            if line.strip().startswith("#") or line.strip() == "":
+                continue
+            (trad, _sep, rest) = line.partition(" ")
+            (simp, _sep, rest) = rest.partition(" [")
+            (pinyin, _sep, rest) = rest.partition("] ")
+            defs = [d.strip() for d in rest.strip(" /\n\t").split("/")]
+            yield (line, trad, simp, pinyin, defs)
