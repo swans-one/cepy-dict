@@ -15,5 +15,39 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-def test_true():
-    assert True
+import pathlib
+
+from cepy_dict import cedict_raw_file, cedict_entries
+
+TEST_DICT = pathlib.Path(__file__).parent / "test_dict.txt"
+
+def test_cedict_raw_file_loads_full_dict():
+    with cedict_raw_file() as f:
+        line_count = len(f.readlines())
+    assert line_count > 100_000
+
+def test_cedict_raw_file_test_file():
+    with cedict_raw_file(TEST_DICT) as f:
+        line_count = len(f.readlines())
+    assert line_count == 6
+
+def test_cedict_entries_test_file():
+    entries = list(cedict_entries(TEST_DICT))
+    assert len(entries) == 3
+
+    # First entry
+    line, trad, simp, pinyin, defs = entries[0]
+    assert trad == "巨蟒"
+    assert pinyin == "ju4 mang3"
+    assert defs == ["python"]
+
+    # Second Entry
+    line, trad, simp, pinyin, defs = entries[1]
+    assert trad != simp
+    assert simp == "程序设计"
+    assert pinyin == "cheng2 xu4 she4 ji4"
+    assert defs == ["computer programming"]
+
+    # Third Entry
+    line, trad, simp, pinyin, defs = entries[2]
+    assert len(defs) == 9
